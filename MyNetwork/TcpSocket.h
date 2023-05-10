@@ -30,7 +30,7 @@ namespace AzNetworking
 
 		void SetSocketFd(SocketFd socketFd);
 
-		SocketFd GetSokcetFd() const;
+		SocketFd GetSocketFd() const;
 
 		int32_t Send(const uint8_t* data, uint32_t size) const;
 
@@ -50,6 +50,8 @@ namespace AzNetworking
 
 	};
 }
+
+#include "TcpSocket.inl"
 
 #endif // !TCP_SOCKET_H
 

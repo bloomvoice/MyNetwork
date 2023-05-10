@@ -7,6 +7,7 @@
 
 namespace AzNetworking
 {
+
 	AZ_TYPE_SAFE_INTEGRAL(SocketFd, int32_t);
 	static constexpr SocketFd InvalidSocketFd = SocketFd{ -1 };
 
@@ -22,24 +23,33 @@ namespace AzNetworking
 	static const int32_t SocketOpResultNotOpen = -3;
 	static const int32_t SocketOpResultNoSsl = -4;
 
-	#define aznumeric_cast static_cast
+#define aznumeric_cast static_cast
 
 	int32_t GetLastNetworkError();
 
 	bool ErrorIsWouldBlock(int32_t errorCode);
 
-	#define AZLOG_WARN(MESSAGE, ...)                                                                             \
+#define AZLOG_WARN(MESSAGE, ...)                                                                             \
 	{                                                                                                            \
 		/*AZ::ILogger* logger = AZ::Interface<AZ::ILogger>::Get();                                                 \
 		if (logger != nullptr && AZ::LogLevel::Warn >= logger->GetLogLevel())                                    \
 		{                                                                                                        \
         logger->LogInternal(AZ::LogLevel::Warn, MESSAGE, __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);   \
 		}  */                                                                                                      \
-		std::cout<<"log warn:"<<MESSAGE<<endl;																		\
+		std::cout<<"log warn:"<<MESSAGE<<std::endl;																		\
 	}
 
+#define AZLOG_ERROR(MESSAGE, ...)                                                                            \
+{                                                                                                            \
+    /*AZ::ILogger* logger = AZ::Interface<AZ::ILogger>::Get();                                                 \
+    if (logger != nullptr && AZ::LogLevel::Error >= logger->GetLogLevel())                                   \
+    {                                                                                                        \
+        logger->LogInternal(AZ::LogLevel::Error, MESSAGE, __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);  \
+    }   */                                                                                                     \
+	std::cout << "log error:" << MESSAGE << std::endl;															\
 }
 
+}
 
 #endif // !NETWORK_COMMON_H
 

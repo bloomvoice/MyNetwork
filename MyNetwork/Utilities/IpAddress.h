@@ -1,6 +1,8 @@
 #ifndef IP_ADDRESS_H
 #define IP_ADDRESS_H
 
+#include <cstdint>
+
 namespace AzNetworking
 {
 	enum class ByteOrder

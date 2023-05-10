@@ -1,5 +1,9 @@
 #include <cassert>
 #include "TcpSocket.h"
+#include "WinSock2.h"
+
+
+#pragma comment(lib, "Ws2_32.lib")
 
 namespace AzNetworking
 {
@@ -179,7 +183,7 @@ namespace AzNetworking
 			if (::bind(aznumeric_cast<int32_t>(m_socketFd), (const sockaddr*)&hints, sizeof(hints)) != 0)
 			{
 				const int32_t error = GetLastNetworkError();
-				AZLOG_WARN("Failed to bind TCP socket to port %u (%d:%s)"/*, uint32_t(port), error, GetNetworkErrorDesc(error)*/);
+				AZLOG_WARN("Failed to bind TCP socket to port %u (%d:%s)" /*, uint32_t(port), error, GetNetworkErrorDesc(error) */ );
 				return false;
 			}
 		}
@@ -194,7 +198,7 @@ namespace AzNetworking
 			if (::connect(aznumeric_cast<int32_t>(m_socketFd), (const sockaddr*)&dest, sizeof(dest)) != 0)
 			{
 				const int32_t error = GetLastNetworkError();
-				AZLOG_WARN("Failed to connect to remote endpoint %u (%d:%s)"/*, uint32_t(port), error, GetNetworkErrorDesc(error)*/);
+				AZLOG_WARN("Failed to connect to remote endpoint %u (%d:%s)" /*, uint32_t(port), error, GetNetworkErrorDesc(error) */ );
 				return false;
 			}
 		}
@@ -204,7 +208,7 @@ namespace AzNetworking
 
 	bool TcpSocket::SocketCreateInternal()
 	{
-		assert(!IsOpen(), "Open called on an active socket");
+		assert(!IsOpen()/*, "Open called on an active socket"*/);
 
 		if (!IsOpen())
 		{
