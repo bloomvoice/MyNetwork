@@ -1,83 +1,68 @@
-#pragma once
-
+#include "IpAddress.h"
+#include "WinSock2.h"
 
 namespace AzNetworking
 {
-	inline uint8_t IpAddress::GetQuaA() const
+	namespace Platform
 	{
-		return ((m_ipv4Address >> 24) & 0xFF);
+		void InitIpAddress(uint32_t& ipv4address, uint16_t port, const char* hostname, const char* service, ProtocolType type);
 	}
 
-	inline uint8_t IpAddress::GetQuaB() const
+	IpAddress::IpAddress(const char* hostname, const char* service, ProtocolType type)
 	{
-		return ((m_ipv4Address >> 16) & 0xFF);
+		Platform::InitIpAddress(m_ipv4Address, m_port, hostname, service, type);
 	}
 
-	inline uint8_t IpAddress::GetQuaC() const
+	IpAddress::IpAddress(const char* hostname, uint16_t port, ProtocolType type)
+		: IpAddress(hostname, nullptr, type)
 	{
-		return ((m_ipv4Address >> 8) & 0xFF);
+		m_port = port;
 	}
 
-	inline uint8_t IpAddress::GetQuaD() const
+	IpAddress::IpAddress(uint8_t quadA, uint8_t quadB, uint8_t quadC, uint8_t quadD, uint16_t port)
+		:m_ipv4Address((quadA) << 24 | (quadB) << 16 | (quadC) << 8 | quadD)
+		,m_port(port)
 	{
-		return ((m_ipv4Address) & 0xFF);
+
 	}
 
-	inline bool IpAddress::operator==(const IpAddress& rhs) const
+	IpAddress::IpAddress(ByteOrder byteOrder, uint32_t address, uint16_t port)
+		:m_ipv4Address(byteOrder == ByteOrder::Network ? ntohl(address) : address)
+		,m_port(byteOrder == ByteOrder::Network ? ntohs(port) : port)
 	{
-		return (m_ipv4Address == rhs.m_ipv4Address) && (m_port == rhs.m_ipv4Address);
+
 	}
 
-	inline bool IpAddress::operator!=(const IpAddress& rhs) const
+	IpAddress::~IpAddress()
 	{
-		return (m_ipv4Address != rhs.m_ipv4Address) || (m_port != rhs.m_ipv4Address);
+
 	}
 
-	inline bool IpAddress::operator!=(const IpAddress& rhs) const
+	IpAddress::IpString IpAddress::GetString() const
 	{
-		return (m_ipv4Address != rhs.m_ipv4Address) || (m_port != rhs.m_ipv4Address);
+		return std::string();
 	}
 
-	inline bool IpAddress::operator<(const IpAddress& rhs) const
+	IpAddress::IpString IpAddress::GetIpString() const
 	{
-		if (m_ipv4Address == rhs.m_ipv4Address)
-		{
-			return m_port < rhs.m_ipv4Address;
-		}
-		return m_ipv4Address < rhs.m_ipv4Address;
+		return std::string();
 	}
 
-	inline bool IpAddress::operator<=(const IpAddress& rhs) const
+	uint32_t IpAddress::GetAddress(ByteOrder byteOrder) const
 	{
-		if (m_ipv4Address == rhs.m_ipv4Address)
-		{
-			return m_port <= rhs.m_ipv4Address;
-		}
-		return m_ipv4Address <= rhs.m_ipv4Address;
+		return byteOrder == ByteOrder::Network ? htonl(m_ipv4Address) : m_ipv4Address;
 	}
 
-	inline bool IpAddress::operator>(const IpAddress& rhs) const
+	uint16_t IpAddress::GetPort(ByteOrder byteOrder) const
 	{
-		return !(*this <= rhs);
+		return byteOrder == ByteOrder::Network ? htons(m_port) : m_port;
 	}
 
-	inline bool IpAddress::operator>=(const IpAddress& rhs) const
-	{
-		return !(*this < rhs);
-	}
-}
 
-namespace AZStd
-{
-	template<>
-	struct  hash<AzNetworking::IpAddress>
+	bool IpAddress::Serialize(ISerializer& serialize)
 	{
-		inline size_t operator()(const AzNetworking::IpAddress& key)const
-		{
-			const uint64_t address = key.GetAddress(AzNetworking::ByteOrder::Host);
-			const uint64_t port = key.GetPort(AzNetworking::ByteOrder::Host);
-			const uint64_t hashValue = (port << 32) | address;
-			return AZStd::hash<uint64_t>()(hashValue);
-		}
-	};
+		serialize.Serialize(m_ipv4Address, "Ipv4Address");
+		serialize.Serialize(m_port, "Port");
+		return serialize.IsValid();
+	}
 }

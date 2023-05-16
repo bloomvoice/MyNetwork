@@ -37,6 +37,7 @@ namespace AzNetworking
 	_Class(const _Class&) = delete; _Class& operator =(const _Class &) = delete; AZ_DISABLE_MOVE(_Class)
 
 
+	const char* GetNetworkErrorDesc(int32_t errorCode);
 
 
 #define aznumeric_cast static_cast
