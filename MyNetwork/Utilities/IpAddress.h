@@ -15,6 +15,9 @@ namespace AzNetworking
 	{
 
 	public:
+		static constexpr uint32_t MaxIpStringLength = 32;
+		using IpString = std::string/*AZStd::fixed_string<MaxIpStringLength>*/;
+
 		uint32_t GetAddress(ByteOrder byteOrder) const;
 
 		uint16_t GetPort(ByteOrder byteOrder) const;

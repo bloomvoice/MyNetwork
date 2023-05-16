@@ -7,6 +7,9 @@ namespace AZStd
 {
 	using std::underlying_type;
 	using std::underlying_type_t;
+
+    //template<size_t MaxElementCount>
+    //using fixed_string = basic_fixed_string<char, MaxElementCount, char_traits<char>>;
 }
 
 // Overload arithmetic operators(+, -, *, /, %, <<, >>,++, --) for enum types

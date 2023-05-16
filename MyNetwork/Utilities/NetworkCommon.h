@@ -23,6 +23,22 @@ namespace AzNetworking
 	static const int32_t SocketOpResultNotOpen = -3;
 	static const int32_t SocketOpResultNoSsl = -4;
 
+	#define AZ_TRAIT_USE_SOCKET_SERVER_EPOLL 0
+	#define AZ_TRAIT_USE_SOCKET_SERVER_SELECT 1
+
+	AZ_TYPE_SAFE_INTEGRAL(TimeMS, int64_t);
+
+	AZ_TYPE_SAFE_INTEGRAL(TimeUS, int64_t);
+
+	#define AZ_DISABLE_MOVE(_Class) \
+	_Class(const _Class&&) = delete; _Class& operator =(const _Class &&) = delete;
+
+	#define AZ_DISABLE_COPY_MOVE(_Class) \
+	_Class(const _Class&) = delete; _Class& operator =(const _Class &) = delete; AZ_DISABLE_MOVE(_Class)
+
+
+
+
 #define aznumeric_cast static_cast
 
 	int32_t GetLastNetworkError();
