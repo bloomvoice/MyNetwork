@@ -30,7 +30,7 @@ namespace AzNetworking
 		AZ_DISABLE_COPY_MOVE(TcpSocketManager);
 
 #if AZ_TRAIT_USE_SOCKET_SERVER_EPOLL
-
+		SocketFd m_epollFd = InvalidSocketFd;
 #elif AZ_TRAIT_USE_SOCKET_SERVER_SELECT
 		fd_set m_sourceFdSet;
 		fd_set m_readerFdSet;
@@ -42,6 +42,24 @@ namespace AzNetworking
 		std::vector<SocketFd> m_socketFds;
 
 	};
+
+	inline void TcpSocketManager::AddSocketHelper(SocketFd socketFd)
+	{
+		auto element = std::find(m_socketFds.begin(), m_socketFds.end(), socketFd);
+		if (m_socketFds.end() == element)
+		{
+			m_socketFds.push_back(socketFd);
+		}
+	}
+
+	inline void TcpSocketManager::ClearSocketHelper(SocketFd socketFd)
+	{
+		auto element = std::find(m_socketFds.begin(), m_socketFds.end(), socketFd);
+		if (m_socketFds.end() != element)
+		{
+			m_socketFds.erase(element);
+		}
+	}
 
 }
 

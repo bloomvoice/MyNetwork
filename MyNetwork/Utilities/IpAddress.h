@@ -43,6 +43,11 @@ namespace AzNetworking
 
 		IpString GetIpString() const;
 
+		uint8_t GetQuadA() const;
+		uint8_t GetQuadB() const;
+		uint8_t GetQuadC() const;
+		uint8_t GetQuadD() const;
+
 		bool operator ==(const IpAddress& rhs)const;
 		bool operator !=(const IpAddress& rhs)const;
 		bool operator <(const IpAddress& rhs)const;
@@ -61,6 +66,8 @@ namespace AzNetworking
 	};
 
 }
+
+#include "IpAddress.inl"
 
 #endif // !IP_ADDRESS_H
 

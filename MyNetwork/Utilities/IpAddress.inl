@@ -2,14 +2,64 @@
 
 namespace AzNetworking
 {
-	uint32_t IpAddress::GetAddress(ByteOrder byteOrder) const
+	inline uint8_t IpAddress::GetQuadA() const
 	{
-		return 0;
+		return uint8_t((m_ipv4Address >> 24) & 0xFF);
 	}
 
-	uint16_t IpAddress::GetPort(ByteOrder byteOrder) const
+	inline uint8_t IpAddress::GetQuadB() const
 	{
-		return 0;
+		return uint8_t((m_ipv4Address >> 16) & 0xFF);
+	}
+
+	inline uint8_t IpAddress::GetQuadC() const
+	{
+		return uint8_t((m_ipv4Address >> 8) & 0xFF);
+	}
+
+	inline uint8_t IpAddress::GetQuadD() const
+	{
+		return uint8_t((m_ipv4Address) & 0xFF);
+	}
+
+	bool IpAddress::operator ==(const IpAddress& rhs)const
+	{
+		return (m_ipv4Address == rhs.m_ipv4Address) && (m_port == rhs.m_port);
+	}
+
+	bool IpAddress::operator !=(const IpAddress& rhs)const
+	{
+		return (m_ipv4Address != rhs.m_ipv4Address) || (m_port != rhs.m_port);
+	}
+
+	inline bool IpAddress::operator <(const IpAddress& rhs)const
+	{
+		if (m_ipv4Address == rhs.m_ipv4Address)
+		{
+			return m_port < rhs.m_port;
+		}
+
+		return m_ipv4Address < rhs.m_ipv4Address;
+	}
+
+	inline bool IpAddress::operator <= (const IpAddress& rhs)const
+	{
+		if (m_ipv4Address == rhs.m_ipv4Address)
+		{
+			return m_port <= rhs.m_port;
+		}
+
+		return m_ipv4Address <= rhs.m_ipv4Address;
+	}
+
+	inline bool IpAddress::operator > (const IpAddress& rhs)const
+	{
+		return !(*this <= rhs);
+	}
+
+	inline bool IpAddress::operator >= (const IpAddress& rhs)const
+	{
+		return !(*this < rhs);
 	}
 
 }
