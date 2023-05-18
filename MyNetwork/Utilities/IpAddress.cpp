@@ -21,14 +21,14 @@ namespace AzNetworking
 
 	IpAddress::IpAddress(uint8_t quadA, uint8_t quadB, uint8_t quadC, uint8_t quadD, uint16_t port)
 		:m_ipv4Address((quadA) << 24 | (quadB) << 16 | (quadC) << 8 | quadD)
-		,m_port(port)
+		, m_port(port)
 	{
 
 	}
 
 	IpAddress::IpAddress(ByteOrder byteOrder, uint32_t address, uint16_t port)
 		:m_ipv4Address(byteOrder == ByteOrder::Network ? ntohl(address) : address)
-		,m_port(byteOrder == ByteOrder::Network ? ntohs(port) : port)
+		, m_port(byteOrder == ByteOrder::Network ? ntohs(port) : port)
 	{
 
 	}
@@ -61,8 +61,9 @@ namespace AzNetworking
 
 	bool IpAddress::Serialize(ISerializer& serialize)
 	{
-		serialize.Serialize(m_ipv4Address, "Ipv4Address");
+		/*serialize.Serialize(m_ipv4Address, "Ipv4Address");
 		serialize.Serialize(m_port, "Port");
-		return serialize.IsValid();
+		return serialize.IsValid();*/
+		return true;
 	}
 }

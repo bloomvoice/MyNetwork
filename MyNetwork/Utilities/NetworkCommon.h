@@ -4,6 +4,7 @@
 #include "TypeSafeIntegral.h"
 #include "WinSock2.h"
 #include <iostream>
+#include <cstdint>
 
 namespace AzNetworking
 {
@@ -23,12 +24,17 @@ namespace AzNetworking
 	static const int32_t SocketOpResultNotOpen = -3;
 	static const int32_t SocketOpResultNoSsl = -4;
 
-	#define AZ_TRAIT_USE_SOCKET_SERVER_EPOLL 0
-	#define AZ_TRAIT_USE_SOCKET_SERVER_SELECT 1
+	#define AZ_TRAIT_USE_SOCKET_SERVER_EPOLL 0;
+	#define AZ_TRAIT_USE_SOCKET_SERVER_SELECT 1;
 
 	AZ_TYPE_SAFE_INTEGRAL(TimeMS, int64_t);
 
 	AZ_TYPE_SAFE_INTEGRAL(TimeUS, int64_t);
+
+	#define AZ_TRAIT_COMPILER_INT64_T_IS_LONG 0
+
+	typedef int64_t s64;
+	typedef uint64_t u64;
 
 	#define AZ_DISABLE_MOVE(_Class) \
 	_Class(const _Class&&) = delete; _Class& operator =(const _Class &&) = delete;

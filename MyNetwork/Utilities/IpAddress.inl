@@ -1,4 +1,6 @@
-#include "IpAddress.h"
+//#ifndef IPADRESS_INL
+//#define IPADRESS_INL
+#pragma once
 
 namespace AzNetworking
 {
@@ -22,12 +24,12 @@ namespace AzNetworking
 		return uint8_t((m_ipv4Address) & 0xFF);
 	}
 
-	bool IpAddress::operator ==(const IpAddress& rhs)const
+	inline bool IpAddress::operator ==(const IpAddress& rhs)const
 	{
 		return (m_ipv4Address == rhs.m_ipv4Address) && (m_port == rhs.m_port);
 	}
 
-	bool IpAddress::operator !=(const IpAddress& rhs)const
+	inline bool IpAddress::operator !=(const IpAddress& rhs)const
 	{
 		return (m_ipv4Address != rhs.m_ipv4Address) || (m_port != rhs.m_port);
 	}
@@ -63,3 +65,7 @@ namespace AzNetworking
 	}
 
 }
+
+
+//#endif // !IPADRESS_INL
+

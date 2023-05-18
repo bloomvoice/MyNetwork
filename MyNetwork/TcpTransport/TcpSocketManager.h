@@ -29,9 +29,9 @@ namespace AzNetworking
 
 		AZ_DISABLE_COPY_MOVE(TcpSocketManager);
 
-#if AZ_TRAIT_USE_SOCKET_SERVER_EPOLL
+#if AZ_TRAIT_USE_SOCKET_SERVER_EPOLL	
 		SocketFd m_epollFd = InvalidSocketFd;
-#elif AZ_TRAIT_USE_SOCKET_SERVER_SELECT
+#elif AZ_TRAIT_USE_SOCKET_SERVER_SELECT 
 		fd_set m_sourceFdSet;
 		fd_set m_readerFdSet;
 		fd_set m_writerFdSet;
