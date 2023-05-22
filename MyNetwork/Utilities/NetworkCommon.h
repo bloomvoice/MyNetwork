@@ -10,7 +10,10 @@ namespace AzNetworking
 {
 
 	AZ_TYPE_SAFE_INTEGRAL(SocketFd, int32_t);
-	static constexpr SocketFd InvalidSocketFd = SocketFd{ -1 };
+	static constexpr SocketFd InvalidSocketFd = SocketFd(-1);
+
+	AZ_TYPE_SAFE_INTEGRAL(PacketId, uint32_t);
+	static constexpr PacketId InvalidPacketId = PacketId(0xFFFFFFFF);
 
 	bool SetSocketNonBlocking(SocketFd socketFd);
 
@@ -24,12 +27,19 @@ namespace AzNetworking
 	static const int32_t SocketOpResultNotOpen = -3;
 	static const int32_t SocketOpResultNoSsl = -4;
 
-	#define AZ_TRAIT_USE_SOCKET_SERVER_EPOLL 0;
-	#define AZ_TRAIT_USE_SOCKET_SERVER_SELECT 1;
-
 	AZ_TYPE_SAFE_INTEGRAL(TimeMS, int64_t);
 
 	AZ_TYPE_SAFE_INTEGRAL(TimeUS, int64_t);
+
+	namespace Time
+	{
+		static constexpr AzNetworking::TimeMS ZeroTimeMS = AzNetworking::TimeMS(0);
+		static constexpr AzNetworking::TimeUS ZeroTimeUS = AzNetworking::TimeUS(0);
+	}
+
+	#define AZ_TRAIT_USE_SOCKET_SERVER_EPOLL 0;
+	#define AZ_TRAIT_USE_SOCKET_SERVER_SELECT 1;
+
 
 	#define AZ_TRAIT_COMPILER_INT64_T_IS_LONG 0
 
@@ -51,6 +61,8 @@ namespace AzNetworking
 	int32_t GetLastNetworkError();
 
 	bool ErrorIsWouldBlock(int32_t errorCode);
+
+#define AZ_TYPE_INFO(MESSAGE, ...)
 
 #define AZLOG_WARN(MESSAGE, ...)                                                                             \
 	{                                                                                                            \
