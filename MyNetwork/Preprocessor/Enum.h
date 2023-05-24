@@ -17,6 +17,12 @@ AZ_ENUM ConnectionRole
 	,Acceptor
 };
 
+AZ_ENUM TerminationEndpoint
+{
+	 Local
+	,Remote
+};
+
 AZ_ENUM DisconnectReason
 {
 	 None
