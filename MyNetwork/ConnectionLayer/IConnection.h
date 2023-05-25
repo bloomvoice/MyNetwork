@@ -5,6 +5,7 @@
 #include "../Utilities/NetworkCommon.h"
 #include "../Preprocessor/Enum.h"
 #include "ConnectionMetrics.h"
+#include "../PacketLayer/IPacket.h"
 
 
 namespace AzNetworking
@@ -30,21 +31,21 @@ namespace AzNetworking
 		InternalClientToServer,
 	};
 
-	class IConenction
+	class IConnection
 	{
 	public:
-		IConenction(ConnectionId connectionId, const IpAddress & address);
-		virtual ~IConenction() = default;
+		IConnection(ConnectionId connectionId, const IpAddress & address);
+		virtual ~IConnection() = default;
 
 		virtual bool SendReliablePacket(const IPacket& packet) = 0;
 
-		virtual bool SendUnReliablePacket(const IPacket& packet) = 0;
+		virtual PacketId SendUnReliablePacket(const IPacket& packet) = 0;
 
 		virtual bool WasPacketAcked(PacketId packetId)const = 0;
 
 		virtual ConnectionState GetConnectionState() const = 0;
 
-		virtual ConnectionRole GetConnectRole() const = 0;
+		virtual ConnectionRole GetConnectionRole() const = 0;
 
 		virtual bool Disconnect(DisconnectReason reason, TerminationEndpoint endpoint) = 0;
 
