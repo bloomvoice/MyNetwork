@@ -4,7 +4,7 @@
 #include "../ConnectionLayer/IConnection.h"
 #include "TcpSocket.h"
 #include "../DataStructures/ByteBuffer.h"
-#include "../PacketLayer/IPacketHeader.h"
+#include "TcpPacketHeader.h"
 
 namespace AzNetworking
 {
@@ -64,12 +64,35 @@ namespace AzNetworking
 
 		bool SendPacketInternal(PacketType packetType, TcpPacketEncodingBuffer& payLoadBuffer, AzNetworking::TimeMS currentTimeMs);
 
-		bool ReceivePacketInternal(TcpPacketHeader)
+		bool ReceivePacketInternal(TcpPacketHeader& outHeader, TcpPacketEncodingBuffer& outBuffer, AzNetworking::TimeMS currentMs);
+
+		bool DecompressPacket(const uint8_t* packetBuffer, std::size_t packetSize, TcpPacketEncodingBuffer& packetBufferOut);
+
+		TcpConnection& operator=(const TcpConnection&) = delete;
+
+		TcpNetworkInterface& m_networkInterface;
+
+		std::unique_ptr<TcpSocket> m_socket;
+		std::unique_ptr<ICompressor> m_socket;
+
+		PacketId m_lastSentPacketId = InvalidPacketId;
+
+		ConnectionState m_state = ConnectionState::DisConnected;
+		ConnectionRole m_connectRole = ConnectionRole::Connector;
+		SocketFd m_registeredSocketFd;
+
+		static const uint32_t SendRingbufferSize = 1024 * 1024;
+		TcpRingBuffer<SendRingbufferSize> m_sendRingbuffer;
+
+		static const uint32_t RecvRingbufferSize = 1024 * 1024;
+		TcpRingBuffer<RecvRingbufferSize> m_sendRingbuffer;
 	};
+
 
 }
 
 
+#include "TcpConnection.inl"
 
 #endif // !TCP_CONNECTION_H
 

@@ -34,6 +34,7 @@ namespace AzNetworking
 		PacketFlagBitset m_packetFlags;
 	};
 
+#include "TcpPacketHeader.inl"
 }
 
 

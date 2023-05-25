@@ -2,9 +2,13 @@
 //
 
 #include <iostream>
+#include "ConnectionLayer/IConnection.h"
+
 
 int main()
 {
+
+    AzNetworking::ConnectionQuality oConnectionQuality(1, AzNetworking::Time::ZeroTimeMS, AzNetworking::Time::ZeroTimeMS);
     std::cout << "Hello World!\n";
 }
 

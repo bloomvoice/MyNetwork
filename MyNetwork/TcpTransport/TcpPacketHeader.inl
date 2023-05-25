@@ -6,33 +6,32 @@
 
 namespace AzNetworking
 {
-	class TcpPacketHeader final
-		: public IPacketHeader
+	inline TcpPacketHeader::TcpPacketHeader(PacketType packetType, uint16_t packetSize)
+		:m_packetType(packetType)
+		,m_packetSize(packetSize)
 	{
-		TcpPacketHeader(PacketType packetType, uint16_t packetSize);
+		;
+	}
 
-		virtual ~TcpPacketHeader() = default;
+	inline PacketType TcpPacketHeader::GetPacketType() const
+	{
+		return m_packetType;
+	}
 
-		PacketType GetPacketType() const override;
+	inline PacketId TcpPacketHeader::GetPacketId() const
+	{
+		return InvalidPacketId;
+	}
 
-		PacketId GetPacketId() const override;
+	inline bool TcpPacketHeader::IsPacketFlagSet(PacketFlag flag) const
+	{
+		return m_packetFlags.test(static_cast<uint32_t>(flag));
+	}
 
-		bool IsPacketFlagSet(PacketFlag flag) const override;
-
-		void SetPacketFlag(PacketFlag flag, bool value) override;
-
-		uint16_t GetPacketSize() const;
-
-		bool Serialize(ISerializer& serializer);
-
-
-	private:
-		PacketType m_packetType;
-
-		uint16_t m_packetSize;
-
-		PacketFlagBitset m_packetFlags;
-	};
+	inline void SetPacketFlag(PacketFlag flag, bool value)
+	{
+		m_packetFlags.set(static_cast<uint32_t>(flag));
+	}
 
 }
 
