@@ -15,6 +15,7 @@ namespace AzNetworking
 	AZ_TYPE_SAFE_INTEGRAL(PacketId, uint32_t);
 	static constexpr PacketId InvalidPacketId = PacketId(0xFFFFFFFF);
 
+
 	bool SetSocketNonBlocking(SocketFd socketFd);
 
 	bool SetSocketNoDelay(SocketFd socketFd);

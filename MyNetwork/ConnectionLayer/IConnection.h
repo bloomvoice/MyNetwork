@@ -1,6 +1,7 @@
 #ifndef ICONNECTION_H
 #define ICONNECTION_H
 
+
 #include "../Utilities/IpAddress.h"
 #include "../Utilities/NetworkCommon.h"
 #include "../Preprocessor/Enum.h"

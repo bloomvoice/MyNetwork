@@ -17,7 +17,8 @@ namespace AzNetworking
 
 	enum class PacketFlag
 	{
-		Compressed
+		 NotCompressed
+		,Compressed
 		,MAX
 	};
 

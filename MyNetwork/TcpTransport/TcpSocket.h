@@ -10,6 +10,7 @@ namespace AzNetworking
 
 	class TcpSocket
 	{
+	public:
 		TcpSocket();
 
 		TcpSocket(SocketFd socketFd);

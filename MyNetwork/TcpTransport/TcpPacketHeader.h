@@ -3,6 +3,7 @@
 
 #include "../PacketLayer/IPacketHeader.h"
 #include "../PacketLayer/IPacket.h"
+#include "../Serialization/ISerializer.h"
 
 namespace AzNetworking
 {

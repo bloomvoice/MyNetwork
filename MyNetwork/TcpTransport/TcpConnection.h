@@ -5,9 +5,12 @@
 #include "TcpSocket.h"
 #include "../DataStructures/ByteBuffer.h"
 #include "TcpPacketHeader.h"
+#include "../Preprocessor/Enum.h"
 
 namespace AzNetworking
 {
+	class TcpNetworkInterface;
+
 	class TcpConnection final
 		: public IConnection
 	{
@@ -73,7 +76,7 @@ namespace AzNetworking
 		TcpNetworkInterface& m_networkInterface;
 
 		std::unique_ptr<TcpSocket> m_socket;
-		std::unique_ptr<ICompressor> m_socket;
+		//std::unique_ptr<ICompressor> m_compress;
 
 		PacketId m_lastSentPacketId = InvalidPacketId;
 
@@ -85,7 +88,7 @@ namespace AzNetworking
 		TcpRingBuffer<SendRingbufferSize> m_sendRingbuffer;
 
 		static const uint32_t RecvRingbufferSize = 1024 * 1024;
-		TcpRingBuffer<RecvRingbufferSize> m_sendRingbuffer;
+		TcpRingBuffer<RecvRingbufferSize> m_recvRingbuffer;
 	};
 
 
