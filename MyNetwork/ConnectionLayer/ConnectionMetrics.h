@@ -31,8 +31,8 @@ class ConnectionMetrics
 
 	void Reset();
 
-	void LogPacketSent(uint32_t byteCount, AzNetworking::TimeMS);
-	void LogPacketRecv(uint32_t byteCount, AzNetworking::TimeMS);
+	void LogPacketSent(uint32_t byteCount, uint64_t curTime);
+	void LogPacketRecv(uint32_t byteCount, uint64_t curTime);
 	void LogPacketLost();
 	void LogPacketAcked();
 

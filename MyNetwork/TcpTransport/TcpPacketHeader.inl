@@ -23,12 +23,17 @@ namespace AzNetworking
 		return InvalidPacketId;
 	}
 
+	inline uint16_t TcpPacketHeader::GetPacketSize() const
+	{
+		return m_packetSize;
+	}
+
 	inline bool TcpPacketHeader::IsPacketFlagSet(PacketFlag flag) const
 	{
 		return m_packetFlags.test(static_cast<uint32_t>(flag));
 	}
 
-	inline void SetPacketFlag(PacketFlag flag, bool value)
+	inline void TcpPacketHeader::SetPacketFlag(PacketFlag flag, bool value)
 	{
 		m_packetFlags.set(static_cast<uint32_t>(flag));
 	}

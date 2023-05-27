@@ -1,4 +1,5 @@
 #include "NetworkCommon.h"
+#include "../Preprocessor/Enum.h"
 
 namespace AzNetworking
 {
@@ -7,6 +8,25 @@ namespace AzNetworking
 	{
 		bool SetSocketNonBlocking(SocketFd socketFd);
 		void CloseSocket(SocketFd socketFd);
+	}
+
+	DisconnectReason GetDisconnectReasonForSocketResult(int32_t socketResult)
+	{
+		switch (socketResult)
+		{
+		case SocketOpResultError:
+			return DisconnectReason::UnKown;
+		case SocketOpResultDisconnected:
+			return DisconnectReason::RemoteHostClosedConnection;
+		case SocketOpResultNotOpen:
+			return DisconnectReason::TransportError;
+		case SocketOpResultNoSsl:
+			return DisconnectReason::SslFailure;
+		default:
+			break;
+		}
+
+			return DisconnectReason::MAX;
 	}
 
 	bool SetSocketNonBlocking(SocketFd socketFd)

@@ -53,4 +53,10 @@ AZ_ENUM DisconnectReason
 	,MAX
 };
 
+enum class ConnectResult
+{
+	Rejected
+	,Accepted
+};
+
 #endif // !CONNECTION_ENUM_H

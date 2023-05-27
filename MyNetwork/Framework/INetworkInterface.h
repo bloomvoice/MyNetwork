@@ -10,7 +10,6 @@ namespace AzNetworking
 	class INetworkInterface
 	{
 	public:
-		INetworkInterface(ConnectionId connectionId, const IpAddress & address);
 		virtual ~INetworkInterface() = default;
 
 		

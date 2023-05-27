@@ -6,6 +6,7 @@
 #include "../DataStructures/ByteBuffer.h"
 #include "TcpPacketHeader.h"
 #include "../Preprocessor/Enum.h"
+#include "TcpRingBuffer.h"
 
 namespace AzNetworking
 {
@@ -65,7 +66,7 @@ namespace AzNetworking
 
 	private:
 
-		bool SendPacketInternal(PacketType packetType, TcpPacketEncodingBuffer& payLoadBuffer, AzNetworking::TimeMS currentTimeMs);
+		bool SendPacketInternal(PacketType packetType, TcpPacketEncodingBuffer& payLoadBuffer, uint64_t curTime);
 
 		bool ReceivePacketInternal(TcpPacketHeader& outHeader, TcpPacketEncodingBuffer& outBuffer, AzNetworking::TimeMS currentMs);
 

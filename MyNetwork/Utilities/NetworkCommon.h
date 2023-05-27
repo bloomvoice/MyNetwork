@@ -28,6 +28,8 @@ namespace AzNetworking
 	static const int32_t SocketOpResultNotOpen = -3;
 	static const int32_t SocketOpResultNoSsl = -4;
 
+	DisconnectReason GetDisconnectReasonForSocketResult(int32_t socketResult);
+
 	AZ_TYPE_SAFE_INTEGRAL(TimeMS, int64_t);
 
 	AZ_TYPE_SAFE_INTEGRAL(TimeUS, int64_t);

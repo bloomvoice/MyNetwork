@@ -10,6 +10,7 @@ namespace AzNetworking
 	class TcpPacketHeader final
 		: public IPacketHeader
 	{
+	public:
 		TcpPacketHeader(PacketType packetType, uint16_t packetSize);
 
 		virtual ~TcpPacketHeader() = default;
